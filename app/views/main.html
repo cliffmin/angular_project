@@ -1,0 +1,93 @@
+<br/>
+<br/>
+<br/>
+<div class="container">
+    <div ng-controller="MainCtrl">
+        <img style="padding-left:20px; padding-right: 20px" ng-src="{{ events.imageURL }}" class="img-responsive" src=""
+             alt="{{ events.name }}"/>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h2><strong>{{ events.name}}</strong></h2>
+            </div>
+        </div>
+        <div>
+            <button class="btn" ng-disabled="buttonDisabled">Disabled</button> <em>Using the ng-disabled directive, erases ambiguity</em>
+        </div>
+        <div class="row">
+           <em>Div inside of div.col-xs-4 to stack</em>
+            <br/>
+            <div class="col-xs-4">
+                <div><strong>Date:</strong> {{ events.date | date:'medium' }}</div>
+                <div><strong>Time:</strong> {{ events.time}}</div>
+            </div>
+
+            <div class="col-xs-4"><strong>Price:</strong> {{ 34 | currency}}
+
+                <div>
+                    <address>
+                        <strong>Address:</strong> <br/>
+                        {{ events.location.address }} <br/>
+                        {{ events.location.province }}
+                    </address>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div>
+        <em>two place decimal filter</em>
+        <br/>
+        {{ 3.141592 | number:2 }}
+    </div>
+    <hr/>
+    <h3>Sessions</h3>
+
+    <div class="row col-sm-12">
+        <ul class="thumbnails">
+            Order By:
+            <select class="input-small" ng-model="sortOrder">
+                <option value="name">Name</option>
+                <option value="-upVoteCount">Up vote count</option>
+                <option value="Duration">Duration</option>
+            </select>
+            <Show></Show>:
+            <!--query.level this will have the query model bind to the level property of the scope-->
+            <!--model.property-->
+            <select class="input-medium" ng-model="query.level">
+                <option selected value="">All</option>
+                <option selected value="beginner">Beginner</option>
+                <option selected value="intermediate">Intermediate</option>
+                <option selected value="advanced">Advanced</option>
+            </select>
+
+            <div ng-repeat="session in events.sessions | orderBy:sortOrder | filter: query">
+
+                <div class="row">
+                    <div class="col-sm-1 well votingWidget">
+                        <div class="votingButton" ng-click="upVoteSession(session)">
+                            <span class="glyphicon glyphicon-chevron-up"></span>
+                        </div>
+                        <div class="badge badge-inverse">
+                            <div>
+                                {{ session.upVoteCount }}
+                            </div>
+                        </div>
+                        <div class="votingButton" ng-click="downVoteSession(session)">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </div>
+                    </div>
+                    <div class="well col-sm-9">
+                        <h4 class="well-title">
+                            {{ session.name }}
+                        </h4>
+                        <h6 style="margin-top:-10px">{{ session.creatorName }}</h6>
+                        <div>Duration: {{ session.duration | durations}}</div>
+                        <div>Level: {{ session.level }}</div>
+                        <p>{{ session.abstract }}</p>
+                    </div>
+                </div>
+            </div>
+        </ul>
+    </div>
+</div>
+
