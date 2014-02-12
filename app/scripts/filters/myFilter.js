@@ -2,6 +2,7 @@
  *
  * Created by myself on 2/12/14.
  */
+//my own custom filter
 angular.module('example1App')
     .filter('durations', function () {
         return function (duration) {
