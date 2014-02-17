@@ -1,3 +1,9 @@
+input.ng-invalid.ng-dirty {
+    border-color: #B20000;
+}
+input.ng-valid.ng-dirty{
+   border-color: forestgreen;
+}
 /* Space out content a bit */
 body {
   padding-top: 20px;
